@@ -1,4 +1,11 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 export default function Navbar() {
+  const pathname = usePathname();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
       <div className="max-w-360 mx-auto px-6 h-16 flex items-center justify-between">
@@ -12,27 +19,26 @@ export default function Navbar() {
             </h1>
           </div>
           <nav className="hidden lg:flex items-center gap-6">
-            <a className="text-sm font-semibold text-primary" href="#">
-              Dashboard
-            </a>
-            <a
-              className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors"
-              href="#"
+            <Link
+              className={
+                pathname === "/dashboard"
+                  ? "text-sm font-semibold text-primary transition-colors"
+                  : "text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors"
+              }
+              href="/dashboard"
             >
-              Products
-            </a>
-            <a
-              className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors"
-              href="#"
+              Dashboard
+            </Link>
+            <Link
+              className={
+                pathname === "/dashboard/veterinarias"
+                  ? "text-sm font-semibold text-primary transition-colors"
+                  : "text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors"
+              }
+              href="/dashboard/veterinarias"
             >
               Veterinaries
-            </a>
-            <a
-              className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors"
-              href="#"
-            >
-              Notifications
-            </a>
+            </Link>
           </nav>
         </div>
         <div className="flex items-center gap-4">

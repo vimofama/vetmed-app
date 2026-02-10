@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   // TODO: Componetizar
   return (
@@ -158,9 +160,13 @@ export default function Home() {
                       23 veterinarias conectadas
                     </div>
                   </div>
-                  <button className="w-full flex items-center justify-center rounded-lg h-12 bg-primary text-white font-bold hover:brightness-110 transition-all">
+                  <Link
+                    prefetch={false}
+                    href="/dashboard"
+                    className="w-full flex items-center justify-center rounded-lg h-12 bg-primary text-white font-bold hover:brightness-110 transition-all"
+                  >
                     Acceder como Distribuidor
-                  </button>
+                  </Link>
                 </div>
                 <div className="group flex flex-col gap-6 rounded-xl border-2 border-solid border-[#dbdee6] dark:border-gray-800 bg-white dark:bg-background-dark p-8 hover:border-[#059669] hover:shadow-xl transition-all duration-300">
                   <div className="flex flex-col gap-4">

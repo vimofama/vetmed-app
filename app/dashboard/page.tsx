@@ -1,5 +1,86 @@
+"use client";
+
+import { useState } from "react";
+import ProductForm from "@/components/dashboard/veterinary/ProductForm";
+
+interface Product {
+  id: string;
+  name: string;
+  stock: number;
+  price: number;
+  sellingVets: number;
+  status: "active" | "low-stock" | "expiry-alert";
+  category: string;
+  activeIngredient: string;
+  dosage: string;
+  expirationDate: string;
+}
+
+const productsData: Product[] = [
+  {
+    id: "1",
+    name: "Amoxicilina 500mg",
+    stock: 120,
+    price: 15.0,
+    sellingVets: 12,
+    status: "active",
+    category: "antibiotics",
+    activeIngredient: "Amoxicillin",
+    dosage: "500mg",
+    expirationDate: "2025-12-31",
+  },
+  {
+    id: "2",
+    name: "Ivermectina 1%",
+    stock: 15,
+    price: 22.5,
+    sellingVets: 8,
+    status: "low-stock",
+    category: "antibiotics",
+    activeIngredient: "Ivermectin",
+    dosage: "1%",
+    expirationDate: "2025-08-15",
+  },
+  {
+    id: "3",
+    name: "Meloxicam 15mg",
+    stock: 5,
+    price: 18.0,
+    sellingVets: 5,
+    status: "expiry-alert",
+    category: "analgesics",
+    activeIngredient: "Meloxicam",
+    dosage: "15mg",
+    expirationDate: "2024-03-01",
+  },
+  {
+    id: "4",
+    name: "Enrofloxacina 100ml",
+    stock: 45,
+    price: 34.2,
+    sellingVets: 10,
+    status: "active",
+    category: "antibiotics",
+    activeIngredient: "Enrofloxacin",
+    dosage: "100ml bottle",
+    expirationDate: "2026-01-20",
+  },
+];
+
 export default function Dashboard() {
-  // TODO: Mejorar el uso del cursor
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  const handleAddProduct = () => {
+    setSelectedProduct(null);
+    setIsModalOpen(true);
+  };
+
+  const handleEditProduct = (product: Product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
   return (
     <main className="max-w-360 mx-auto px-6 py-8">
       <div className="grid grid-cols-12 gap-8">
@@ -61,7 +142,10 @@ export default function Dashboard() {
                   Track and manage your current medical supplies
                 </p>
               </div>
-              <button className="cursor-pointer bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg text-sm font-bold flex items-center gap-2 transition-all shadow-md">
+              <button
+                onClick={handleAddProduct}
+                className="cursor-pointer bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg text-sm font-bold flex items-center gap-2 transition-all shadow-md"
+              >
                 <span className="material-symbols-outlined text-sm">add</span>
                 Agregar Nuevo Producto
               </button>
@@ -91,90 +175,59 @@ export default function Dashboard() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                  <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                    <td className="px-6 py-5 font-semibold">
-                      Amoxicilina 500mg
-                    </td>
-                    <td className="px-6 py-5">120 units</td>
-                    <td className="px-6 py-5 text-slate-600 dark:text-slate-400 font-medium">
-                      $15.00
-                    </td>
-                    <td className="px-6 py-5 text-slate-600 dark:text-slate-400">
-                      12
-                    </td>
-                    <td className="px-6 py-5">
-                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-success/10 text-success border border-success/20">
-                        Active
-                      </span>
-                    </td>
-                    <td className="px-6 py-5">
-                      <button className="text-slate-400 dark:text-slate-500 hover:text-primary transition-colors">
-                        <span className="material-symbols-outlined">edit</span>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                    <td className="px-6 py-5 font-semibold">Ivermectina 1%</td>
-                    <td className="px-6 py-5">15 units</td>
-                    <td className="px-6 py-5 text-slate-600 dark:text-slate-400 font-medium">
-                      $22.50
-                    </td>
-                    <td className="px-6 py-5 text-slate-600 dark:text-slate-400">
-                      8
-                    </td>
-                    <td className="px-6 py-5">
-                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-warning/10 text-warning border border-warning/20">
-                        Low Stock
-                      </span>
-                    </td>
-                    <td className="px-6 py-5">
-                      <button className="text-slate-400 dark:text-slate-500 hover:text-primary transition-colors">
-                        <span className="material-symbols-outlined">edit</span>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                    <td className="px-6 py-5 font-semibold">Meloxicam 15mg</td>
-                    <td className="px-6 py-5">5 units</td>
-                    <td className="px-6 py-5 text-slate-600 dark:text-slate-400 font-medium">
-                      $18.00
-                    </td>
-                    <td className="px-6 py-5 text-slate-600 dark:text-slate-400">
-                      5
-                    </td>
-                    <td className="px-6 py-5">
-                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-danger/10 text-danger border border-danger/20">
-                        Expiry Alert
-                      </span>
-                    </td>
-                    <td className="px-6 py-5">
-                      <button className="text-slate-400 dark:text-slate-500 hover:text-primary transition-colors">
-                        <span className="material-symbols-outlined">edit</span>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                    <td className="px-6 py-5 font-semibold">
-                      Enrofloxacina 100ml
-                    </td>
-                    <td className="px-6 py-5">45 units</td>
-                    <td className="px-6 py-5 text-slate-600 dark:text-slate-400 font-medium">
-                      $34.20
-                    </td>
-                    <td className="px-6 py-5 text-slate-600 dark:text-slate-400">
-                      10
-                    </td>
-                    <td className="px-6 py-5">
-                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-success/10 text-success border border-success/20">
-                        Active
-                      </span>
-                    </td>
-                    <td className="px-6 py-5">
-                      <button className="text-slate-400 dark:text-slate-500 hover:text-primary transition-colors">
-                        <span className="material-symbols-outlined">edit</span>
-                      </button>
-                    </td>
-                  </tr>
+                  {productsData.map((product) => {
+                    const getStatusBadge = () => {
+                      switch (product.status) {
+                        case "active":
+                          return (
+                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-success/10 text-success border border-success/20">
+                              Active
+                            </span>
+                          );
+                        case "low-stock":
+                          return (
+                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-warning/10 text-warning border border-warning/20">
+                              Low Stock
+                            </span>
+                          );
+                        case "expiry-alert":
+                          return (
+                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-danger/10 text-danger border border-danger/20">
+                              Expiry Alert
+                            </span>
+                          );
+                      }
+                    };
+
+                    return (
+                      <tr
+                        key={product.id}
+                        className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors"
+                      >
+                        <td className="px-6 py-5 font-semibold">
+                          {product.name}
+                        </td>
+                        <td className="px-6 py-5">{product.stock} units</td>
+                        <td className="px-6 py-5 text-slate-600 dark:text-slate-400 font-medium">
+                          ${product.price.toFixed(2)}
+                        </td>
+                        <td className="px-6 py-5 text-slate-600 dark:text-slate-400">
+                          {product.sellingVets}
+                        </td>
+                        <td className="px-6 py-5">{getStatusBadge()}</td>
+                        <td className="px-6 py-5">
+                          <button
+                            onClick={() => handleEditProduct(product)}
+                            className="cursor-pointer text-slate-400 dark:text-slate-500 hover:text-primary transition-colors"
+                          >
+                            <span className="material-symbols-outlined">
+                              edit
+                            </span>
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -306,6 +359,30 @@ export default function Dashboard() {
           </div>
         </aside>
       </div>
+
+      {/* Modal Dialog */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+          <div
+            className="relative bg-background-light dark:bg-background-dark rounded-xl shadow-2xl max-h-[90vh] overflow-y-auto w-full max-w-250 animate-in zoom-in-95 duration-200"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-4 right-4 z-10 size-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              aria-label="Close dialog"
+            >
+              <span className="material-symbols-outlined text-slate-600 dark:text-slate-400">
+                close
+              </span>
+            </button>
+            <ProductForm
+              product={selectedProduct}
+              onClose={() => setIsModalOpen(false)}
+            />
+          </div>
+        </div>
+      )}
     </main>
   );
 }
