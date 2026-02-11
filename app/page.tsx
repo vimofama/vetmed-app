@@ -217,9 +217,13 @@ export default function Home() {
                       Pedidos directos a distribuidores
                     </div>
                   </div>
-                  <button className="w-full flex items-center justify-center rounded-lg h-12 bg-[#059669] text-white font-bold hover:brightness-110 transition-all">
+                  <Link
+                    href="/vet"
+                    prefetch={false}
+                    className="w-full flex items-center justify-center rounded-lg h-12 bg-[#059669] text-white font-bold hover:brightness-110 transition-all"
+                  >
                     Acceder como Veterinaria
-                  </button>
+                  </Link>
                 </div>
                 <div className="group flex flex-col gap-6 rounded-xl border-2 border-solid border-[#dbdee6] dark:border-gray-800 bg-white dark:bg-background-dark p-8 hover:border-[#0ea5e9] hover:shadow-xl transition-all duration-300">
                   <div className="flex flex-col gap-4">
@@ -270,9 +274,13 @@ export default function Home() {
                       Consulta de disponibilidad real
                     </div>
                   </div>
-                  <button className="w-full flex items-center justify-center rounded-lg h-12 bg-[#0ea5e9] text-white font-bold hover:brightness-110 transition-all">
+                  <Link
+                    href="/comercio"
+                    prefetch={false}
+                    className="w-full flex items-center justify-center rounded-lg h-12 bg-[#0ea5e9] text-white font-bold hover:brightness-110 transition-all"
+                  >
                     Buscar Productos
-                  </button>
+                  </Link>
                 </div>
               </div>
             </section>
